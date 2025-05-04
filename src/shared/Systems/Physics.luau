@@ -108,7 +108,10 @@ function Physics.Update(dt: number)
         world:set(entity, components.AngularAcceleration, Vector3.zero)
 
         for i, force in forces do
-            if force.Constant then continue end
+            if force.Value ~= Vector3.zero and force.Constant then
+                continue 
+            end
+            
             forces[i] = nil
         end
 

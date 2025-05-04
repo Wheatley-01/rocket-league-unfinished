@@ -10,6 +10,7 @@ local world = require(ReplicatedStorage.Shared.WorldSingleton)
 
 local ground = require(ReplicatedStorage.Shared.Systems.Ground)
 local moduleLoader = require(ReplicatedStorage.Shared.Util.ModuleLoader)
+local network = require(script.Network)
 local physics = require(ReplicatedStorage.Shared.Systems.Physics)
 local worldData = require(ReplicatedStorage.Shared.Data.WorldData)
 
@@ -22,6 +23,7 @@ end
 RunService.Heartbeat:Connect(function()
     ground.Update(worldData.FixedDeltaTime)
     physics.Update(worldData.FixedDeltaTime)
+    network.Update(worldData.FixedDeltaTime)
 end)
 
 Players.PlayerAdded:Connect(function(player)

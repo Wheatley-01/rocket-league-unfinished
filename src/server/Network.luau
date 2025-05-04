@@ -1,6 +1,7 @@
 local Network = {}
 Network.Priority = 1
 
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local blinkServer = require(ReplicatedStorage.Shared.Network.Server)
@@ -29,16 +30,19 @@ function Network.Init()
             return a.Timestamp < b.Timestamp
         end)
     end)
+end
 
+
+function Network.Update(dt: number)
+    for _, player in Players:GetPlayers() do
+        local playerBuffer = inputBuffer[player.Name]
+    end
+    
     for player, inputs in inputBuffer do
-        while inputs[1] and inputs[1].Timestamp < os.clock() - 0.5 do
+        while inputs[1] and inputs[1].Timestamp + 0.2 < os.time()  do
             table.remove(inputs, 1)
         end
     end
-end
-
-function Network.Update(dt: number)
-    
 end
 
 return Network

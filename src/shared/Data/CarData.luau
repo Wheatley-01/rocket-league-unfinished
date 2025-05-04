@@ -32,7 +32,7 @@ return {
         SteerStrength = 500,
 
         BoostStrength = 2000,
-        JumpStrength = 50000,
+        JumpStrength = 10000,
 
         WheelStiffness = 0.5 --same stiffness for all wheels for now
     }
