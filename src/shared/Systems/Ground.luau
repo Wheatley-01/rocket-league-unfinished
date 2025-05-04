@@ -13,7 +13,7 @@ local raycastParams = RaycastParams.new()
 raycastParams.FilterType = Enum.RaycastFilterType.Include
 raycastParams.FilterDescendantsInstances = {workspace.Map}
 
-local wheelQuery = world:query(
+local groundQuery = world:query(
     components.Position,
     components.WheelColliders, 
     components.Mass, 
@@ -21,7 +21,7 @@ local wheelQuery = world:query(
 ):cached()
 
 function Ground.Update(dt: number)
-    for entity, position, wheels, mass, velocity in wheelQuery do
+    for entity, position, wheels, mass, velocity in groundQuery do
         local largestRadius = wheels[1].Radius
         local rayLength = largestRadius + 2
 
@@ -34,7 +34,7 @@ function Ground.Update(dt: number)
 
             if velocity.Y < 0 then
                 local impulseMagnitude = -mass * (1 + worldData.CoefficientOfRestituion) * velocity.Y
-                local collisionForce = Vector3.new(0, impulseMagnitude / dt, 0) -- F = integral J.dt
+                local collisionForce = Vector3.new(0, impulseMagnitude / dt, 0) 
 
                 physics.ApplyImpulse(entity, collisionForce, Vector3.zero)
             end
